@@ -2,9 +2,14 @@ const setupSlider = () => {
 
     const sliderWrapper = document.querySelector('.slider-wrapper');
     const sliderBtns = document.querySelectorAll('.slider-controllers > *');
+    const sliderCircles = document.querySelector('.slider-сircles');
     const slider = document.querySelector('.slider');
-    const slides = document.querySelectorAll('.slide');
+    const slides = [...document.querySelectorAll('.slide')];
     const images = [...document.querySelectorAll('.slide img')];
+
+    sliderCircles.innerHTML = slides.map(() => '<span></span>').join('');
+    const circles = [...sliderCircles.children];
+    circles[0].classList.add('active');
 
     let initX = 0;
     let currentX = 0;
@@ -48,6 +53,14 @@ const setupSlider = () => {
         currentTranslate = slideStep * -slider.offsetWidth;
         initTranslate = currentTranslate;
         displayTransform();
+        setActiveCircle();
+    };
+
+    const setActiveCircle = () => {
+        circles.forEach((circle, index) => {
+            if (index === slideStep) circle.classList.add('active');
+            else circle.classList.remove('active');
+        });
     };
 
     sliderWrapper.addEventListener('touchstart', event => startSwipe(event));
@@ -61,6 +74,13 @@ const setupSlider = () => {
 
     sliderBtns[1].addEventListener('click', () => {
         slideStep++;
+        switchSlide();
+    });
+
+    sliderCircles.addEventListener('click', event => {
+        if (event.target.tagName !== 'SPAN') return;
+        const index = circles.indexOf(event.target);
+        slideStep = index;
         switchSlide();
     });
 
