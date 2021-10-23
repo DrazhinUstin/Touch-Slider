@@ -1,0 +1,81 @@
+:root {
+    --black: rgba(0, 0, 0);
+    --white: rgb(255, 255, 255);
+    --trans-white: rgb(255, 255, 255, 0.5);
+    --red: rgb(255, 0, 0);
+    --shadow: 0 5px 10px rgba(255, 0, 0, 0.5);
+    --transition: all 0.4s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background-color: var(--black);
+}
+
+.slider-wrapper {
+    position: relative;
+    max-width: 1200px;
+    width: 90vw;
+    border: 2px solid var(--red);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.slider {
+    display: flex;
+    transition: var(--transition);
+}
+
+.slide {
+    flex: 0 0 100%;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.slider-controllers {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.slider-controllers > * {
+    margin: 0 -5rem;
+    border: none;
+    background-color: inherit;
+    color: var(--trans-white);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.slider-controllers > *:hover {
+    color: var(--white);
+}
+
+.slider-wrapper:hover .slider-controllers > * {
+    margin: 0 0.5rem;
+}
+
+@media screen and (max-width: 500px) {
+    .slider-wrapper {
+        width: 95vw;
+    }    
+    .slider-controllers > * {
+        font-size: 1.5rem;
+    }
+}
